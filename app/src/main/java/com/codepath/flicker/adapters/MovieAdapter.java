@@ -2,6 +2,7 @@ package com.codepath.flicker.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,12 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
 
         //clear out image from convertView
         viewHolder.ivImageView.setImageResource(0);
-        Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.ivImageView);
+        int orientation = getContext().getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.ivImageView);
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Picasso.with(getContext()).load(movie.getBackdropPath()).into(viewHolder.ivImageView);
+        }
 
         //populate data
         viewHolder.tvTitle.setText(movie.getOriginalTitle());
