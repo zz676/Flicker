@@ -2,7 +2,6 @@ package com.codepath.flicker.Controllers;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.codepath.flicker.R;
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     moviesResults = response.getJSONArray("results");
                     movies.addAll( Movie.fromJSONArray(moviesResults));
                     movieAdapter.notifyDataSetChanged();
-                    Log.d("DEBUG", moviesResults.toString());
+                    //Log.d("DEBUG", moviesResults.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -33,6 +33,7 @@ public class Movie {
     String overView;
 
     public Movie(JSONObject jsonObject) throws JSONException {
+        this.movieId = jsonObject.getString("id");
         this.posterPath = jsonObject.getString("poster_path");
         this.originalTitle = jsonObject.getString("original_title");
         this.overView = jsonObject.getString("overview");
