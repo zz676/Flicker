@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by sam on 7/22/16.
  */
-public class MovieAdapter extends ArrayAdapter<Movie>{
+public class MovieAdapter extends ArrayAdapter<Movie> {
 
     public MovieAdapter(Context context, ArrayList<Movie> movies) {
         super(context, android.R.layout.simple_list_item_1, movies);
@@ -30,25 +30,36 @@ public class MovieAdapter extends ArrayAdapter<Movie>{
 
         Movie movie = getItem(position);
 
+        ViewHolder viewHolder;
+
         //check the existing view being reused
-        if(convertView == null) {
+        if (convertView == null) {
+            viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_movie, parent, false);
+            viewHolder.ivImageView = (ImageView) convertView.findViewById(R.id.ivMovieImage);
+            viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+            viewHolder.tvOverView = (TextView) convertView.findViewById(R.id.txOverView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        //find the image view
-        ImageView ivImageView = (ImageView) convertView.findViewById(R.id.ivMovieImage);
         //clear out image from convertView
-        ivImageView.setImageResource(0);
-        Picasso.with(getContext()).load(movie.getPosterPath()).into(ivImageView);
-
-        TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-        TextView tvOverView = (TextView) convertView.findViewById(R.id.txOverView);
+        viewHolder.ivImageView.setImageResource(0);
+        Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.ivImageView);
 
         //populate data
-        tvTitle.setText(movie.getOriginalTitle());
-        tvOverView.setText(movie.getOverView());
+        viewHolder.tvTitle.setText(movie.getOriginalTitle());
+        viewHolder.tvOverView.setText(movie.getOverView());
 
         return convertView;
     }
+
+    private static class ViewHolder {
+        ImageView ivImageView;
+        TextView tvTitle;
+        TextView tvOverView;
+    }
+
 }
