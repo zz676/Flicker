@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.codepath.flicker.Controllers.YouTubePlayerActivity;
@@ -58,6 +59,8 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
             });
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             viewHolder.tvOverView = (TextView) convertView.findViewById(R.id.txOverView);
+            viewHolder.rbMovieVotes = (RatingBar) convertView.findViewById(R.id.rbMovieVotes);
+            viewHolder.tvAverageVote = (TextView) convertView.findViewById(R.id.tvAverageVote);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -84,6 +87,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
                             viewHolder.progressBarPicasso.setVisibility(View.GONE);
                         }
                     }
+
                     @Override
                     public void onError() {
 
@@ -93,7 +97,8 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         //populate data
         viewHolder.tvTitle.setText(movie.getOriginalTitle());
         viewHolder.tvOverView.setText(movie.getOverView());
-
+        viewHolder.tvAverageVote.setText(movie.getAverageReview() + "/10");
+        viewHolder.rbMovieVotes.setRating(Float.parseFloat(movie.getAverageReview()));
         return convertView;
     }
 
@@ -103,6 +108,8 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         ImageView ivYouTubePlayer;
         TextView tvTitle;
         TextView tvOverView;
+        RatingBar rbMovieVotes;
+        TextView tvAverageVote;
     }
 
 }

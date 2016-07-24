@@ -31,11 +31,16 @@ public class Movie {
         return overView;
     }
 
+    public String getAverageReview() {
+        return averageReview;
+    }
+
     String movieId;
     String posterPath;
     String backdropPath;
     String originalTitle;
     String overView;
+    String averageReview;
 
     public Movie(JSONObject jsonObject) throws JSONException {
         this.movieId = jsonObject.getString("id");
@@ -43,6 +48,7 @@ public class Movie {
         this.backdropPath = jsonObject.getString("backdrop_path");
         this.originalTitle = jsonObject.getString("original_title");
         this.overView = jsonObject.getString("overview");
+        this.averageReview = jsonObject.getString("vote_average");
     }
 
     public static ArrayList<Movie> fromJSONArray(JSONArray array) throws JSONException {

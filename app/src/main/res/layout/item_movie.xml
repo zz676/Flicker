@@ -51,8 +51,29 @@
         android:id="@+id/txOverView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitle"
-        android:layout_toEndOf="@+id/frameLayout"
-        android:layout_toRightOf="@+id/frameLayout"
+        android:layout_alignLeft="@+id/rbMovieVotes"
+        android:layout_alignStart="@+id/rbMovieVotes"
+        android:layout_below="@+id/rbMovieVotes"
         tools:text="We always knew they were coming back. Using recovered alien technology, the nations of Earth have collaborated on an immense defense program to protect the planet. But nothing can prepare us for the aliens’ advanced and unprecedented force. Only the ingenuity of a few brave men and women can bring our world back from the brink of extinction." />
+
+    <RatingBar
+        android:id="@+id/rbMovieVotes"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_toRightOf="@+id/frameLayout"
+        android:numStars="10"
+     />
+
+    <TextView
+        android:id="@+id/tvAverageVote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_toEndOf="@+id/rbMovieVotes"
+        android:layout_toRightOf="@+id/rbMovieVotes"
+        android:gravity="center_vertical"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 </RelativeLayout>
