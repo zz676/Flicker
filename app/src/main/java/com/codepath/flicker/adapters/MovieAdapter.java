@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.codepath.flicker.Controllers.YouTubePlayerActivity;
@@ -37,7 +38,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         //get the data item for position
 
         final Movie movie = getItem(position);
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
 
         //check the existing view being reused
         if (convertView == null) {
@@ -45,6 +46,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_movie, parent, false);
             viewHolder.ivImageView = (ImageView) convertView.findViewById(R.id.ivMovieImage);
+            viewHolder.progressBarPicasso = (ProgressBar) convertView.findViewById(R.id.progressBarPicasso);
             viewHolder.ivYouTubePlayer = (ImageView) convertView.findViewById(R.id.ivYoutubePlayerImage);
             viewHolder.ivYouTubePlayer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -63,12 +65,30 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
 
         //clear out image from convertView
         viewHolder.ivImageView.setImageResource(0);
+        String imageUrl = "";
         int orientation = getContext().getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.ivImageView);
+            imageUrl = movie.getPosterPath();
+            //Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.ivImageView);
         } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Picasso.with(getContext()).load(movie.getBackdropPath()).into(viewHolder.ivImageView);
+            imageUrl = movie.getBackdropPath();
+            //Picasso.with(getContext()).load(movie.getBackdropPath()).into(viewHolder.ivImageView);
         }
+
+        viewHolder.progressBarPicasso.setVisibility(View.VISIBLE);
+        Picasso.with(getContext()).load(imageUrl)
+                .into(viewHolder.ivImageView, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        if (viewHolder.progressBarPicasso != null) {
+                            viewHolder.progressBarPicasso.setVisibility(View.GONE);
+                        }
+                    }
+                    @Override
+                    public void onError() {
+
+                    }
+                });
 
         //populate data
         viewHolder.tvTitle.setText(movie.getOriginalTitle());
@@ -79,6 +99,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
 
     private static class ViewHolder {
         ImageView ivImageView;
+        ProgressBar progressBarPicasso;
         ImageView ivYouTubePlayer;
         TextView tvTitle;
         TextView tvOverView;

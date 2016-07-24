@@ -29,4 +29,6 @@ dependencies {
     // Android Async Http for sending async network requests
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile files('libs/YouTubeAndroidPlayerApi.jar')
+    compile 'com.android.support:support-v4:24.1.0'
+
 }
