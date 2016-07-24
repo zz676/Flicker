@@ -19,7 +19,8 @@
         </activity>
         <activity
             android:name=".Controllers.YouTubePlayerActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
+        <activity android:name=".Controllers.MovieDetailsActivity"></activity>
     </application>
 
 </manifest>

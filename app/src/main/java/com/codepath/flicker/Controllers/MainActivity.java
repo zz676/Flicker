@@ -1,5 +1,6 @@
 package com.codepath.flicker.Controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -62,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
+                final Intent intent = new Intent(getApplicationContext(), MovieDetailsActivity.class);
+                intent.putExtra("movieDetails", movies.get(position));
+                startActivity(intent);
             }
         });
     }
@@ -79,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     movieAdapter.clear();
                     moviesResults = response.getJSONArray("results");
                     movieAdapter.addAll(Movie.fromJSONArray(moviesResults));
-                    //movies.addAll(Movie.fromJSONArray(moviesResults));
+                    movies.addAll(Movie.fromJSONArray(moviesResults));
                     movieAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
