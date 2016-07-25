@@ -19,11 +19,11 @@ public class Movie implements Parcelable {
     }
 
     public String getPosterPath() {
-        return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);
+        return String.format("https://image.tmdb.org/t/p/w185/%s", posterPath);
     }
 
     public String getBackdropPath() {
-        return String.format("https://image.tmdb.org/t/p/w780/%s", backdropPath);
+        return String.format("https://image.tmdb.org/t/p/w500/%s", backdropPath);
     }
 
     public String getOriginalTitle() {
@@ -38,12 +38,22 @@ public class Movie implements Parcelable {
         return averageReview;
     }
 
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public String getmPopularity() {
+        return mPopularity;
+    }
+
     String movieId;
     String posterPath;
     String backdropPath;
     String originalTitle;
     String overView;
     String averageReview;
+    String releaseDate;
+    String mPopularity;
 
     public Movie(JSONObject jsonObject) throws JSONException {
         this.movieId = jsonObject.getString("id");
@@ -52,6 +62,8 @@ public class Movie implements Parcelable {
         this.originalTitle = jsonObject.getString("original_title");
         this.overView = jsonObject.getString("overview");
         this.averageReview = jsonObject.getString("vote_average");
+        this.releaseDate = jsonObject.getString("release_date");
+        this.mPopularity = jsonObject.getString("popularity");
     }
 
     public static ArrayList<Movie> fromJSONArray(JSONArray array) throws JSONException {
@@ -79,6 +91,8 @@ public class Movie implements Parcelable {
         dest.writeString(originalTitle);
         dest.writeString(overView);
         dest.writeString(averageReview);
+        dest.writeString(releaseDate);
+        dest.writeString(mPopularity);
     }
 
     public static final Parcelable.Creator<Movie> CREATOR
@@ -99,5 +113,7 @@ public class Movie implements Parcelable {
         originalTitle = in.readString();
         overView = in.readString();
         averageReview = in.readString();
+        releaseDate = in.readString();
+        mPopularity = in.readString();
     }
 }

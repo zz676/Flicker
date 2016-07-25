@@ -3,6 +3,9 @@ package com.codepath.flicker.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +39,6 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        //get the data item for position
-
         final Movie movie = getItem(position);
         final ViewHolder viewHolder;
 
@@ -46,6 +47,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_movie, parent, false);
+            viewHolder.tvDate = (TextView) convertView.findViewById(R.id.tvDate);
             viewHolder.ivImageView = (ImageView) convertView.findViewById(R.id.ivMovieImage);
             viewHolder.progressBarPicasso = (ProgressBar) convertView.findViewById(R.id.progressBarPicasso);
             viewHolder.ivYouTubePlayer = (ImageView) convertView.findViewById(R.id.ivYoutubePlayerImage);
@@ -58,7 +60,6 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
                 }
             });
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-            viewHolder.tvOverView = (TextView) convertView.findViewById(R.id.txOverView);
             viewHolder.rbMovieVotes = (RatingBar) convertView.findViewById(R.id.rbMovieVotes);
             viewHolder.tvAverageVote = (TextView) convertView.findViewById(R.id.tvAverageVote);
             convertView.setTag(viewHolder);
@@ -77,7 +78,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
             imageUrl = movie.getBackdropPath();
             //Picasso.with(getContext()).load(movie.getBackdropPath()).into(viewHolder.ivImageView);
         }
-
+        viewHolder.ivYouTubePlayer.setVisibility(View.INVISIBLE);
         viewHolder.progressBarPicasso.setVisibility(View.VISIBLE);
         Picasso.with(getContext()).load(imageUrl)
                 .into(viewHolder.ivImageView, new com.squareup.picasso.Callback() {
@@ -85,6 +86,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
                     public void onSuccess() {
                         if (viewHolder.progressBarPicasso != null) {
                             viewHolder.progressBarPicasso.setVisibility(View.GONE);
+                            viewHolder.ivYouTubePlayer.setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -94,11 +96,12 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
                     }
                 });
 
-        //populate data
+        viewHolder.tvDate.setText(movie.getReleaseDate());
         viewHolder.tvTitle.setText(movie.getOriginalTitle());
-        viewHolder.tvOverView.setText(movie.getOverView());
         viewHolder.tvAverageVote.setText(movie.getAverageReview() + "/10");
-        viewHolder.rbMovieVotes.setRating(Float.parseFloat(movie.getAverageReview()));
+        Drawable drawable = viewHolder.rbMovieVotes.getProgressDrawable();
+        drawable.setColorFilter(Color.parseColor("#118C4E"), PorterDuff.Mode.SRC_ATOP);
+        viewHolder.rbMovieVotes.setRating(Float.parseFloat(movie.getAverageReview()) / 2);
         return convertView;
     }
 
@@ -107,9 +110,10 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         ProgressBar progressBarPicasso;
         ImageView ivYouTubePlayer;
         TextView tvTitle;
-        TextView tvOverView;
+        //TextView tvOverView;
         RatingBar rbMovieVotes;
         TextView tvAverageVote;
+        TextView tvDate;
     }
 
 }

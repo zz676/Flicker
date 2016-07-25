@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/textview_margin">
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/frameLayout">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/ivMovieImage"
@@ -25,8 +26,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/youtube_icon"
-            android:layout_gravity="center_horizontal|center_vertical" />
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:src="@drawable/youtube_icon" />
+
         <ProgressBar
             android:id="@+id/progressBarPicasso"
             style="@android:style/Widget.Holo.Light.ProgressBar"
@@ -36,25 +38,30 @@
     </FrameLayout>
 
     <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/textview_left_margin"
+        android:layout_marginTop="@dimen/textview_large_top_margin"
+        android:layout_toEndOf="@+id/frameLayout"
+        android:layout_toRightOf="@+id/frameLayout"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        tools:text="2016" />
+
+    <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:text="Independence Day: Resurgence"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/tvDate"
+        android:layout_marginBottom="@dimen/textview_large_bottom_margin"
+        android:layout_marginLeft="@dimen/textview_left_margin"
+        android:layout_marginRight="@dimen/textview_margin"
+        android:layout_toEndOf="@+id/frameLayout"
         android:layout_toRightOf="@+id/frameLayout"
-        android:layout_toEndOf="@+id/frameLayout" />
-
-    <TextView
-        android:id="@+id/txOverView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="We always knew they were coming back. Using recovered alien technology, the nations of Earth have collaborated on an immense defense program to protect the planet. But nothing can prepare us for the aliens’ advanced and unprecedented force. Only the ingenuity of a few brave men and women can bring our world back from the brink of extinction."
-        android:layout_below="@+id/rbMovieVotes"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/frameLayout"
-        android:layout_toEndOf="@+id/frameLayout" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:text="Independence Day: Resurgence" />
 
     <RatingBar
         android:id="@+id/rbMovieVotes"
@@ -62,10 +69,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvTitle"
+        android:layout_marginLeft="@dimen/textview_left_margin"
+        android:layout_marginRight="@dimen/textview_margin"
         android:layout_toRightOf="@+id/frameLayout"
-        android:numStars="5"
-        android:rating="1.0"
-        android:stepSize="1" />
+        android:numStars="5" />
 
     <TextView
         android:id="@+id/tvAverageVote"

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Flicker</string>
+    <string name="movie_detail">Movie Detail</string>
     <string name="youtube_player_api_key">AIzaSyBj4eG-b_pTpPTq74ayN4B5kNGGr4mh_VE</string>
 </resources>
